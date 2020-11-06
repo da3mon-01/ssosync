@@ -17,6 +17,7 @@ package internal
 import (
 	"context"
 	"io/ioutil"
+	"regexp"
 
 	"github.com/awslabs/ssosync/internal/aws"
 	"github.com/awslabs/ssosync/internal/config"
@@ -149,10 +150,15 @@ func (s *syncGSuite) SyncGroups() error {
 		return err
 	}
 
+	r, err := regexp.Compile(s.cfg.IncludeGroupsRegex)
+	if err != nil {
+		return err
+	}
+
 	correlatedGroups := make(map[string]*aws.Group)
 
 	for _, g := range googleGroups {
-		if s.ignoreGroup(g.Email) {
+		if s.ignoreGroup(g.Email) || !s.includeGroupWithRegex(r, g.Email) {
 			continue
 		}
 
@@ -295,4 +301,8 @@ func (s *syncGSuite) ignoreGroup(name string) bool {
 	}
 
 	return false
+}
+
+func (s *syncGSuite) includeGroupWithRegex(r *regexp.Regexp, name string) bool {
+	return r.MatchString(name)
 }

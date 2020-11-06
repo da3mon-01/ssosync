@@ -22,6 +22,8 @@ type Config struct {
 	IgnoreUsers []string `mapstructure:"ignore_users"`
 	// Ignore groups ...
 	IgnoreGroups []string `mapstructure:"ignore_groups"`
+	// Include groups regex
+	IncludeGroupsRegex string `mapstructure:"include_groups_regex"`
 }
 
 const (
