@@ -114,6 +114,7 @@ Flags:
   -h, --help                        help for ssosync
       --ignore-groups strings       ignores these groups
       --ignore-users strings        ignores these users
+      --include-groups-regex string   includes groups only if they match the provided regex
       --log-format string           log format (default "text")
       --log-level string            log level (default "warn")
   -v, --version                     version for ssosync
@@ -131,7 +132,7 @@ The output of the command when run without 'debug' turned on looks like this:
 2020-05-26T12:08:15.703+0100	INFO	internal/sync.go:183	Done sync groups
 ```
 
-You can ignore users to be synced by setting `--ignore-users user1@example.com,user2@example.com` or `SSOSYNC_IGNORE_USERS=user1@example.com,user2@example.com`. Groups are ignored by setting `--ignore-groups group1@example.com,group1@example.com` or `SSOSYNC_IGNORE_GROUPS=group1@example.com,group1@example.com`.
+You can ignore users to be synced by setting `--ignore-users user1@example.com,user2@example.com` or `SSOSYNC_IGNORE_USERS=user1@example.com,user2@example.com`. Groups are ignored by setting `--ignore-groups group1@example.com,group1@example.com` or `SSOSYNC_IGNORE_GROUPS=group1@example.com,group1@example.com`. You can also create a regex of includex groups by setting `--include-groups-regex .*-team@example.com`. The pattern uses the [RE2 Syntax.](https://github.com/google/re2/wiki/Syntax)
 
 ## AWS Lambda Usage
 
